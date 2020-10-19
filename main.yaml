@@ -1,0 +1,45 @@
+settings:
+    name: MANU
+
+conversations:
+    - 'hello.yaml'
+    - 'planta.yml' ##Nuevas incorporaciones en WINDOWS
+    - 'malestar.yml'
+
+dbs:
+    plantas: import_csv data2.csv
+
+regex:
+    name:
+        - '(mi nombre es |me llamo )?(.*)'
+    respuesta:
+        - '(me duele |si, tengo |tengo dolor de )?(.*)'
+
+    info:
+
+
+strategies:
+    name:
+        - say "Hola mi nombre es MANU"
+        - say "¿Cúal es tu nombre?"
+        - input name | regex name 2
+        - remember name
+        - say "mucho gusto en conocerte"
+    principal:
+        - say "¿Tienes algún malestar o quieres información de alguna planta {}?".format(name)
+        - input respuesta | regex respuesta 2
+        ##DUDA PARA RECOMENDAR PLANTA
+        - if respuesta == "malestar" then solve malestar
+        - if respuesta  == "planta" then solve planta
+
+plugins:
+    - plantas
+
+script:
+    - solve name
+    - add_slot continuar
+    - set_slot continuar "yes"
+    - while continuar == "yes" then solve principal
+    
+
+    

@@ -1,0 +1,4 @@
+script:
+  - say "Estoy en malestar"
+  - say "¿Quieres continuar?"
+  - input continuar | asign si:yes no:no

@@ -1,0 +1,11 @@
+script:
+  - say "Estoy en planta"
+  - 
+  - plantas.random_planta(mal,'recomendacion_planta',db)
+  - if recomendacion_planta then say "Te recomiento la planta {}".format(recomendacion_planta)
+  - if not recomendacion_planta then say "No pude encontrar una planta"
+
+  - say "¿Quieres continuar?"
+  - input continuar  | asign si:yes no:no
+  
+    
